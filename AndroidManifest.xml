@@ -21,6 +21,10 @@
         </activity>
 
         <activity android:name=".HeartbeatReference" android:label="Heartbeat Reference Table"></activity>
+        <activity android:name=".Reference" android:label="Heartbeat Reference Table"></activity>
+        <activity android:name=".HeartBeatCalculator" android:label="Heartbeat Calculator"></activity>
+        <activity android:name=".History" android:label="History"></activity>
+
     </application>
 
 </manifest>

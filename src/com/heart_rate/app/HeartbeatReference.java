@@ -5,7 +5,7 @@ import android.os.Bundle;
 import android.widget.ImageView;
 
 /**
- * Created by sagar on 18-10-2015.
+ * Created by jaat on 18-10-2015.
  */
 public class HeartbeatReference extends Activity {
 

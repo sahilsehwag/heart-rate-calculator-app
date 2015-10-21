@@ -7,6 +7,6 @@
     <string name="instruct">1. Put Your Finger on camera.\n2. Don\'t press tightly on camera. \n3. Keep your finger for 10 seconds.</string>
     <string name="dev">Developed By :\n\tSahil Sehwag\n\tFaraz Peerbaksh</string>
     <string name="dev_title">Developers</string>
-    <string name="contno_">Contact:\n\tSahil Sehwag : 8800343431\n\tFaraz Peerbaksh : 8285682612</string>
+    <string name="contno_">Contact:</string>
     <string name="ref">Age 20-29:\n\t</string>
 </resources>

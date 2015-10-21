@@ -6,7 +6,7 @@ import android.util.AttributeSet;
 import android.view.View;
 
 /**
- * Created by Sahil on 18-10-2015.
+ * Created by jaat on 18-10-2015.
  */
 public class HeartbeatView extends View{
 
@@ -48,7 +48,7 @@ public class HeartbeatView extends View{
         if (canvas == null) throw new NullPointerException();
 
         Bitmap bitmap = null;
-        if (MainActivity.getCurrent() == MainActivity.TYPE.BLACK) bitmap = greenBitmap;
+        if (HeartBeatCalculator.getCurrent() == HeartBeatCalculator.TYPE.BLACK) bitmap = greenBitmap;
         else bitmap = redBitmap;
 
         int bitmapX = bitmap.getWidth() / 2;
