@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="blue_theme" parent="@android:style/Theme.Material">
+        <item name="android:colorPrimaryDark">#0D47A1</item>
+        <item name="android:textColorPrimary">#FFFFFF</item>
+        <item name="android:colorPrimary">#2196F3</item>
+    </style>
+
+</resources>
