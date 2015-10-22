@@ -65,9 +65,6 @@ public class HeartBeatCalculator extends Activity {
 
         PowerManager pm = (PowerManager) getSystemService(Context.POWER_SERVICE);
         wakeLock = pm.newWakeLock(PowerManager.FULL_WAKE_LOCK, "DoNotDimScreen");
-
-        Toast toast = Toast.makeText(this, "creating", Toast.LENGTH_SHORT);
-        toast.show();
     }
 
 
@@ -83,17 +80,11 @@ public class HeartBeatCalculator extends Activity {
         wakeLock.acquire();
         camera = Camera.open();
         startTime = System.currentTimeMillis();
-
-        preview = (SurfaceView) findViewById(R.id.cameraSurface);
-        Toast toast = Toast.makeText(this, "resuming", Toast.LENGTH_SHORT);
-        toast.show();
     }
 
 
     @Override
     public void onPause() {
-        Toast toast = Toast.makeText(this, "pausing", Toast.LENGTH_SHORT);
-        toast.show();
         super.onPause();
         wakeLock.release();
 

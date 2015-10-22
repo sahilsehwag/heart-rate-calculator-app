@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="Main_Layout_Padding">30dp</dimen>
+    <dimen name="Textview_Top_Padding">10dp</dimen>
+    <dimen name="Textview_Left_Padding">10dp</dimen>
+</resources>
