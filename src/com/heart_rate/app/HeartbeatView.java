@@ -21,19 +21,20 @@ public class HeartbeatView extends View{
     private static int parentWidth = 0;
     private static int parentHeight = 0;
 
+
     public HeartbeatView(Context context, AttributeSet attr) {
         super(context, attr);
 
         greenBitmap = BitmapFactory.decodeResource(getResources(), R.drawable.heart_black_white);
         redBitmap = BitmapFactory.decodeResource(getResources(), R.drawable.heart_colored);
     }
-
     public HeartbeatView(Context context) {
         super(context);
 
         greenBitmap = BitmapFactory.decodeResource(getResources(), R.drawable.heart_black_white);
         redBitmap = BitmapFactory.decodeResource(getResources(), R.drawable.heart_colored);
     }
+
 
     @Override
     protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
@@ -43,14 +44,12 @@ public class HeartbeatView extends View{
         parentHeight = View.MeasureSpec.getSize(heightMeasureSpec);
         setMeasuredDimension(parentWidth, parentHeight);
     }
-
-
     @Override
     protected void onDraw(Canvas canvas) {
         if (canvas == null) throw new NullPointerException();
 
         Bitmap bitmap = null;
-        if (previewCallback.getCurrent() == PreviewCallback.TYPE.BLACK) bitmap = greenBitmap;
+        if (HeartBeatCalculator.getCurrent() == HeartBeatCalculator.TYPE.BLACK) bitmap = greenBitmap;
         else bitmap = redBitmap;
 
         int bitmapX = bitmap.getWidth() / 2;
@@ -66,6 +65,5 @@ public class HeartbeatView extends View{
         matrix.postTranslate(centerX, centerY);
         canvas.drawBitmap(bitmap, matrix, paint);
     }
-
 }
 

@@ -84,13 +84,15 @@ public class HeartBeatCalculator extends Activity implements TextureView.Surface
     public void onResume() {
         super.onResume();
 
+        text.setText("");
         //ACQUIRING WAKE LOCK AND OPENING THE CAMERA
         wakeLock.acquire();
         camera = Camera.open();
 
         //SETTING PREVIEW DISPLAY(WILL SHOW PREVIEW ON SURFACE VIEW)
         try {
-            camera.setPreviewDisplay(previewHolder);
+            //camera.setPreviewDisplay(previewHolder);
+            camera.setPreviewTexture(previewSurface.getSurfaceTexture());
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -260,6 +262,14 @@ public class HeartBeatCalculator extends Activity implements TextureView.Surface
     //SURFACE TEXTURE VIEW LISTENER METHODS
     @Override
     public void onSurfaceTextureAvailable(SurfaceTexture surface, int width, int height) {
+        Toast toast = Toast.makeText(this, "available", Toast.LENGTH_SHORT);
+        toast.show();
+        try {
+            camera.setPreviewTexture(surface);
+        } catch (Throwable t) {
+            Log.e("PreviewDemo-surfaceCallback", "Exception in setPreviewDisplay()", t);
+        }
+
         Camera.Parameters parameters = camera.getParameters();
         parameters.setFlashMode(Camera.Parameters.FLASH_MODE_TORCH);
         Camera.Size size = getSmallestPreviewSize(width, height, parameters);
@@ -273,6 +283,7 @@ public class HeartBeatCalculator extends Activity implements TextureView.Surface
 
         try{
             camera.setPreviewTexture(surface);
+            camera.setPreviewCallback(previewCallback);
         } catch (IOException t) {}
 
         camera.startPreview();
@@ -284,6 +295,8 @@ public class HeartBeatCalculator extends Activity implements TextureView.Surface
     }
     @Override
     public boolean onSurfaceTextureDestroyed(SurfaceTexture surface) {
+        Toast toast = Toast.makeText(this, "destroying", Toast.LENGTH_SHORT);
+        toast.show();
         return true;
     }
     @Override

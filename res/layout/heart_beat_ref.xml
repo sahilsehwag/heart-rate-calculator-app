@@ -9,10 +9,10 @@
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceLarge"
             android:text="Under Development"
-            android:id="@+id/textView" android:layout_centerVertical="true" android:layout_centerHorizontal="true"/>
+            android:id="@+id/deb" android:layout_centerVertical="true" android:layout_centerHorizontal="true"/>
     <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/imageView" android:layout_above="@+id/textView" android:layout_centerHorizontal="true"
+            android:id="@+id/imageView" android:layout_above="@+id/deb" android:layout_centerHorizontal="true"
             android:layout_marginBottom="30dp" android:src="@drawable/ic_launcher"/>
 </RelativeLayout>
