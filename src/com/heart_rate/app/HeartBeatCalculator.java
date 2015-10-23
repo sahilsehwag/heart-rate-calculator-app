@@ -2,6 +2,7 @@ package com.heart_rate.app;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.content.res.Configuration;
 import android.graphics.SurfaceTexture;
 import android.hardware.Camera;
@@ -20,7 +21,7 @@ import java.util.concurrent.atomic.AtomicBoolean;
  * Created by jaat on 21-10-2015.
  */
 
-public class HeartBeatCalculator extends Activity implements TextureView.SurfaceTextureListener{
+public class HeartBeatCalculator extends Activity implements TextureView.SurfaceTextureListener,View.OnClickListener{
 
     private static final String TAG = "HeartRateMonitor";
     private static final AtomicBoolean processing = new AtomicBoolean(false);
@@ -37,6 +38,35 @@ public class HeartBeatCalculator extends Activity implements TextureView.Surface
     private static int averageIndex = 0;
     private static final int averageArraySize = 4;
     private static final int[] averageArray = new int[averageArraySize];
+
+
+
+    @Override
+    public void onClick(View v) {
+//        Toast toast = Toast.makeText(HeartBeatCalculator.this, "touch", Toast.LENGTH_SHORT);
+//        toast.show();
+//        if(v.getId() == R.id.image){
+//            //SETTING PREVIEW DISPLAY(WILL SHOW PREVIEW ON SURFACE VIEW)
+//            try {
+//                //camera.setPreviewDisplay(previewHolder);
+//                camera.setPreviewTexture(previewSurface.getSurfaceTexture());
+//            } catch (IOException e) {
+//                e.printStackTrace();
+//            }
+//
+//            //SETTING CAMERA PARAMETERS(SETTING FLASH_MODE AS TORCH)
+//            if(camera != null){
+//                Camera.Parameters parameters = camera.getParameters();
+//                parameters.setFlashMode(Camera.Parameters.FLASH_MODE_TORCH);
+//                camera.setParameters(parameters);
+//            }
+//
+//            //SETTING CAMERA PREVIEW CALLBACK AND STARTING PREVIEW
+//            camera.setPreviewCallback(previewCallback);
+//            camera.startPreview();
+//            startTime = System.currentTimeMillis();
+//        }
+    }
 
     public static enum TYPE {
         BLACK, COLORED
@@ -74,7 +104,6 @@ public class HeartBeatCalculator extends Activity implements TextureView.Surface
         PowerManager pm = (PowerManager) getSystemService(Context.POWER_SERVICE);
         wakeLock = pm.newWakeLock(PowerManager.FULL_WAKE_LOCK, "DoNotDimScreen");
     }
-
 
 
     public void onConfigurationChanged(Configuration newConfig) {
@@ -262,8 +291,6 @@ public class HeartBeatCalculator extends Activity implements TextureView.Surface
     //SURFACE TEXTURE VIEW LISTENER METHODS
     @Override
     public void onSurfaceTextureAvailable(SurfaceTexture surface, int width, int height) {
-        Toast toast = Toast.makeText(this, "available", Toast.LENGTH_SHORT);
-        toast.show();
         try {
             camera.setPreviewTexture(surface);
         } catch (Throwable t) {
@@ -295,8 +322,6 @@ public class HeartBeatCalculator extends Activity implements TextureView.Surface
     }
     @Override
     public boolean onSurfaceTextureDestroyed(SurfaceTexture surface) {
-        Toast toast = Toast.makeText(this, "destroying", Toast.LENGTH_SHORT);
-        toast.show();
         return true;
     }
     @Override

@@ -25,7 +25,8 @@
                                           android:layout_width="match_parent"
                                           android:layout_height="match_parent" android:layout_weight="0.33"
                                           android:layout_gravity="top|center"
-                                          android:layout_alignParentEnd="true" android:paddingBottom="100dp">
+                                          android:layout_alignParentEnd="true" android:paddingBottom="100dp"
+                                          android:clickable="true">
         </com.heart_rate.app.HeartbeatView>
         <TextView
                 android:layout_width="wrap_content"
@@ -34,6 +35,12 @@
                 android:id="@+id/beats_count" android:textSize="50sp" android:layout_gravity="center"
                 android:textColor="#FFFFFF" android:layout_centerVertical="true"
                 android:layout_centerHorizontal="true"/>
+        <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:id="@+id/timer" android:layout_alignParentTop="true" android:layout_centerHorizontal="true"
+                android:layout_marginTop="82dp"/>
     </RelativeLayout>
 
 </LinearLayout>
