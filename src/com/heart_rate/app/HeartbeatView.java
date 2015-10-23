@@ -10,6 +10,8 @@ import android.view.View;
  */
 public class HeartbeatView extends View{
 
+    PreviewCallback previewCallback = new PreviewCallback();
+
     private static final Matrix matrix = new Matrix();
     private static final Paint paint = new Paint(Paint.ANTI_ALIAS_FLAG);
 
@@ -48,7 +50,7 @@ public class HeartbeatView extends View{
         if (canvas == null) throw new NullPointerException();
 
         Bitmap bitmap = null;
-        if (HeartBeatCalculator.getCurrent() == HeartBeatCalculator.TYPE.BLACK) bitmap = greenBitmap;
+        if (previewCallback.getCurrent() == PreviewCallback.TYPE.BLACK) bitmap = greenBitmap;
         else bitmap = redBitmap;
 
         int bitmapX = bitmap.getWidth() / 2;

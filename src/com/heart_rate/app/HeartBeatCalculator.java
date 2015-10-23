@@ -3,13 +3,13 @@ package com.heart_rate.app;
 import android.app.Activity;
 import android.content.Context;
 import android.content.res.Configuration;
+import android.graphics.SurfaceTexture;
 import android.hardware.Camera;
 import android.os.Bundle;
 import android.os.PowerManager;
 import android.util.Log;
-import android.view.SurfaceHolder;
-import android.view.SurfaceView;
-import android.view.View;
+import android.view.*;
+import android.widget.FrameLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -20,13 +20,14 @@ import java.util.concurrent.atomic.AtomicBoolean;
  * Created by jaat on 21-10-2015.
  */
 
-public class HeartBeatCalculator extends Activity {
+public class HeartBeatCalculator extends Activity implements TextureView.SurfaceTextureListener{
 
     private static final String TAG = "HeartRateMonitor";
     private static final AtomicBoolean processing = new AtomicBoolean(false);
 
     private static SurfaceView preview = null;
     private static SurfaceHolder previewHolder = null;
+    private static TextureView previewSurface = null;
     private static Camera camera = null;
     private static View image = null;
     private static TextView text = null;
@@ -56,10 +57,15 @@ public class HeartBeatCalculator extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.heart_beat_calculator);
 
-        preview = (SurfaceView) findViewById(R.id.cameraSurface);
-        previewHolder = preview.getHolder();
-        previewHolder.addCallback(surfaceCallback);
-        previewHolder.setType(SurfaceHolder.SURFACE_TYPE_PUSH_BUFFERS);
+        //FOR USING SURFACE VIEW
+//        preview = (SurfaceView) findViewById(R.id.cameraSurface);
+//        previewHolder = preview.getHolder();
+//        previewHolder.addCallback(surfaceCallback);
+//        previewHolder.setType(SurfaceHolder.SURFACE_TYPE_PUSH_BUFFERS);
+
+        //FOR USING TEXTURE VIEW
+        previewSurface = (TextureView) findViewById(R.id.previewSurface);
+        previewSurface.setSurfaceTextureListener(this);
 
 
         image = findViewById(R.id.image);
@@ -119,7 +125,6 @@ public class HeartBeatCalculator extends Activity {
 
 
     private static Camera.PreviewCallback previewCallback = new Camera.PreviewCallback() {
-
         @Override
         public void onPreviewFrame(byte[] data, Camera cam) {
             if (data == null) throw new NullPointerException();
@@ -200,6 +205,7 @@ public class HeartBeatCalculator extends Activity {
         }
     };
 
+
     private static SurfaceHolder.Callback surfaceCallback = new SurfaceHolder.Callback() {
         @Override
         public void surfaceDestroyed(SurfaceHolder holder) {
@@ -247,5 +253,41 @@ public class HeartBeatCalculator extends Activity {
         }
 
         return result;
+    }
+
+
+
+    //SURFACE TEXTURE VIEW LISTENER METHODS
+    @Override
+    public void onSurfaceTextureAvailable(SurfaceTexture surface, int width, int height) {
+        Camera.Parameters parameters = camera.getParameters();
+        parameters.setFlashMode(Camera.Parameters.FLASH_MODE_TORCH);
+        Camera.Size size = getSmallestPreviewSize(width, height, parameters);
+
+
+        if (size != null) {
+            parameters.setPreviewSize(size.width, size.height);
+            Log.d(TAG, "Using width=" + size.width + " height=" + size.height);
+        }
+        camera.setParameters(parameters);
+
+        try{
+            camera.setPreviewTexture(surface);
+        } catch (IOException t) {}
+
+        camera.startPreview();
+        previewSurface.setVisibility(View.INVISIBLE); // Make the surface invisible as soon as it is created
+    }
+    @Override
+    public void onSurfaceTextureSizeChanged(SurfaceTexture surface, int width, int height) {
+        // Put code here to handle texture size change if you want to
+    }
+    @Override
+    public boolean onSurfaceTextureDestroyed(SurfaceTexture surface) {
+        return true;
+    }
+    @Override
+    public void onSurfaceTextureUpdated(SurfaceTexture surface) {
+        // Update your view here!
     }
 }
