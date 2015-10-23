@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
               android:layout_width="match_parent"
               android:layout_height="match_parent"
               android:padding="@dimen/Main_Layout_Padding"
-              android:orientation="vertical">
+              android:id="@+id/xf" android:baselineAligned="false">
 
     <TextView
             android:layout_width="match_parent"
@@ -19,28 +19,50 @@
             android:layout_height="wrap_content"
             android:id="@+id/ages"
             android:spinnerMode="dropdown"
-            android:layout_below="@+id/textView" android:layout_alignStart="@+id/textView"
-            android:focusableInTouchMode="true" android:focusable="true" android:longClickable="true">
+            android:focusableInTouchMode="true" android:focusable="true" android:longClickable="true"
+            android:layout_toEndOf="@+id/status" android:layout_below="@+id/textView"
+            android:layout_alignParentStart="true">
 
-            </Spinner>
+    </Spinner>
     <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceMedium"
             android:text="Select Your Heartbeat Range"
             android:id="@+id/textView2"
-            android:paddingLeft="@dimen/Textview_Left_Padding"/>
+            android:paddingLeft="@dimen/Textview_Left_Padding"
+            android:layout_below="@+id/ages" android:layout_alignParentStart="true"/>
     <Spinner
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/heartbeats" android:longClickable="true" android:focusable="true"
-            android:focusableInTouchMode="true"/>
+            android:focusableInTouchMode="true"
+            android:layout_toEndOf="@+id/status"
+            android:layout_below="@+id/textView2" android:layout_alignParentStart="true"/>
     <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceLarge"
-            android:id="@+id/status" android:layout_below="@+id/ages" android:layout_alignParentStart="true"
-            android:layout_marginTop="23dp" android:paddingLeft="@dimen/Textview_Left_Padding"
-            android:paddingTop="@dimen/Textview_Top_Padding"/>
+            android:id="@+id/status"
+            android:paddingLeft="@dimen/Textview_Left_Padding"
+            android:paddingTop="@dimen/Textview_Top_Padding" android:layout_below="@+id/heartbeats"
+            android:layout_alignParentStart="true"/>
+    <!--<LinearLayout-->
+            <!--android:orientation="horizontal"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="wrap_content" android:gravity="center_vertical|center_horizontal"-->
+            <!--android:id="@+id/fgh" android:layout_alignParentBottom="true" android:layout_alignParentStart="true">-->
+        <!--<ImageButton-->
+                <!--android:layout_width="43dp"-->
+                <!--android:layout_height="41dp"-->
+                <!--android:id="@+id/facebook_share" android:src="@drawable/facebook_image"-->
+                <!--android:background="@color/primary_light" android:layout_marginRight="20dp" android:elevation="5dp"-->
+                <!--android:alpha="1" android:clickable="true" android:focusable="true"/>-->
+        <!--<ImageButton-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:id="@+id/twitter_share" android:src="@drawable/twitter_image" android:background="#FFFFFF"-->
+                <!--android:layout_marginLeft="20dp" android:elevation="5dp" android:alpha="1"/>-->
+    <!--</LinearLayout>-->
 
-</LinearLayout>
+</RelativeLayout>

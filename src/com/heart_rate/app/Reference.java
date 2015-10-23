@@ -31,6 +31,9 @@ public class Reference extends Activity{
     Spinner heartbeatRangeSelector;
     //INITIALIZING TEXTVIEWS
     TextView status;
+    //IMAGE BUTTONS
+//    ImageButton facebook = (ImageButton) findViewById(R.id.facebook_share);
+//    ImageButton twitter = (ImageButton) findViewById(R.id.twitter_share);
 
 
     @Override
@@ -78,6 +81,22 @@ public class Reference extends Activity{
                 //IGNORE
             }
         });
+
+
+        //SETTING FACEBOOK SHARE ONCLICKLISTENER
+//        facebook.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                //facebook.setAlpha((float)0.3);
+//            }
+//        });
+        //SETTING TWITTER SHARE ONCLICKLISTENER
+//        twitter.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                //twitter.setAlpha((float)0.3);
+//            }
+//        });
 
     }
 

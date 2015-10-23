@@ -13,6 +13,7 @@ import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.io.IOException;
 import java.util.concurrent.atomic.AtomicBoolean;
 
 /**
@@ -60,6 +61,7 @@ public class HeartBeatCalculator extends Activity {
         previewHolder.addCallback(surfaceCallback);
         previewHolder.setType(SurfaceHolder.SURFACE_TYPE_PUSH_BUFFERS);
 
+
         image = findViewById(R.id.image);
         text = (TextView) findViewById(R.id.beats_count);
 
@@ -72,27 +74,49 @@ public class HeartBeatCalculator extends Activity {
     public void onConfigurationChanged(Configuration newConfig) {
         super.onConfigurationChanged(newConfig);
     }
-
     @Override
     public void onResume() {
         super.onResume();
 
+        //ACQUIRING WAKE LOCK AND OPENING THE CAMERA
         wakeLock.acquire();
         camera = Camera.open();
+
+        //SETTING PREVIEW DISPLAY(WILL SHOW PREVIEW ON SURFACE VIEW)
+        try {
+            camera.setPreviewDisplay(previewHolder);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        //SETTING CAMERA PARAMETERS(SETTING FLASH_MODE AS TORCH)
+        if(camera != null){
+            Camera.Parameters parameters = camera.getParameters();
+            parameters.setFlashMode(Camera.Parameters.FLASH_MODE_TORCH);
+            camera.setParameters(parameters);
+        }
+
+        //SETTING CAMERA PREVIEW CALLBACK AND STARTING PREVIEW
+        camera.setPreviewCallback(previewCallback);
+        camera.startPreview();
         startTime = System.currentTimeMillis();
     }
-
-
     @Override
     public void onPause() {
         super.onPause();
         wakeLock.release();
 
-        camera.setPreviewCallback(null);
-        camera.stopPreview();
-        camera.release();
-        camera = null;
+        try {
+            camera.setPreviewCallback(null);
+            camera.stopPreview();
+            camera.release();
+            camera = null;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
+
+
 
     private static Camera.PreviewCallback previewCallback = new Camera.PreviewCallback() {
 
@@ -177,12 +201,10 @@ public class HeartBeatCalculator extends Activity {
     };
 
     private static SurfaceHolder.Callback surfaceCallback = new SurfaceHolder.Callback() {
-
         @Override
         public void surfaceDestroyed(SurfaceHolder holder) {
             //IGNORE
         }
-
         @Override
         public void surfaceCreated(SurfaceHolder holder) {
             try {
@@ -192,21 +214,20 @@ public class HeartBeatCalculator extends Activity {
                 Log.e("PreviewDemo-surfaceCallback", "Exception in setPreviewDisplay()", t);
             }
         }
-
-
         @Override
         public void surfaceChanged(SurfaceHolder holder, int format, int width, int height) {
-            Camera.Parameters parameters = camera.getParameters();
-            parameters.setFlashMode(Camera.Parameters.FLASH_MODE_TORCH);
-            Camera.Size size = getSmallestPreviewSize(width, height, parameters);
-            if (size != null) {
-                parameters.setPreviewSize(size.width, size.height);
-                Log.d(TAG, "Using width=" + size.width + " height=" + size.height);
+            if(camera != null){
+                Camera.Parameters parameters = camera.getParameters();
+                parameters.setFlashMode(Camera.Parameters.FLASH_MODE_TORCH);
+                Camera.Size size = getSmallestPreviewSize(width, height, parameters);
+                if (size != null) {
+                    parameters.setPreviewSize(size.width, size.height);
+                    Log.d(TAG, "Using width=" + size.width + " height=" + size.height);
+                }
+                camera.setParameters(parameters);
+                camera.startPreview();
             }
-            camera.setParameters(parameters);
-            camera.startPreview();
         }
-
     };
 
     private static Camera.Size getSmallestPreviewSize(int width, int height, Camera.Parameters parameters) {
