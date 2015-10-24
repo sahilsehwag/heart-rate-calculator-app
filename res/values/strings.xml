@@ -4,9 +4,10 @@
     <string name="rate">Rate Us</string>
     <string name="contact">Contact Us</string>
     <string name="Instructions">Instructions</string>
-    <string name="instruct">1. Put Your Finger on camera.\n2. Don\'t press tightly on camera. \n3. Keep your finger for 10 seconds.</string>
+    <string name="instruct">1. Put Your Index Finger on camera.\n2. Don\'t press tightly on camera. \n3. Keep your finger for 30 seconds.</string>
     <string name="dev">Developed By :\n\tSahil Sehwag\n\tFaraz Peerbaksh</string>
     <string name="dev_title">Developers</string>
     <string name="contno_">Contact:</string>
     <string name="ref">Age 20-29:\n\t</string>
+    <string name="timer">Measuring in</string>
 </resources>

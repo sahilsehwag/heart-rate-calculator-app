@@ -5,4 +5,6 @@
     <color name="primary_background_color">#000000</color>
     <color name="primary_light">#FFFFFF</color>
     <color name="ripple_blue">#BBDEFB</color>
+    <color name="text_grey">#CCCCCC</color>
+    <color name="heart_red">#F45353</color>
 </resources>

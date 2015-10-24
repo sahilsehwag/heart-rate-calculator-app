@@ -10,20 +10,22 @@
     <uses-permission android:name="android.permission.CAMERA"/>
     <uses-permission android:name="android.permission.WAKE_LOCK"/>
 
-    <application android:label="@string/app_name" android:icon="@drawable/ic_launcher"
-            android:theme="@style/blue_theme">
+    <application android:label="@string/app_name"
+                 android:icon="@drawable/ic_launcher"
+                 android:theme="@style/blue_theme">
+
         <activity android:name="MainActivity"
-                  android:label="@string/app_name">
+                  android:label="@string/app_name"
+                  android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
-
-        <activity android:name=".HeartbeatReference" android:label="Heartbeat Reference Table"></activity>
-        <activity android:name=".Reference" android:label="Heartbeat Reference Table"></activity>
-        <activity android:name=".HeartBeatCalculator" android:label="Heartbeat Calculator"></activity>
-        <activity android:name=".History" android:label="History"></activity>
+        <activity android:name=".HeartbeatReference" android:label="Heartbeat Reference Table" android:screenOrientation="portrait"></activity>
+        <activity android:name=".Reference" android:label="Heartbeat Reference Table" android:screenOrientation="portrait"/>
+        <activity android:name=".HeartBeatCalculator" android:label="Heartbeat Calculator" android:screenOrientation="portrait"/>
+        <activity android:name=".History" android:label="History" android:screenOrientation="portrait"/>
 
     </application>
 
