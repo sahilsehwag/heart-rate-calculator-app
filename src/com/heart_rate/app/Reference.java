@@ -12,9 +12,7 @@ public class Reference extends Activity{
 
     //INITIALIZING REQUIRED STRING ARRAYS
     String[] ages = {"18-25", "26,35", "36-45", "46-55", "55-65", "65+"};
-    String[] gender = {"Male", "Female"};
-    String[] status_strings = {"athletic", "excellent", "good", "above-average", "average", "below-average", "poor"};
-    String[] rangeNames = {"first","second","third","fourth","fifth","sixth"};
+    String[] status_strings = {"ATHLETIC", "EXCELLENT", "GOOD", "ABOVE-AVERAGE", "AVERAGE", "BELOW-AVERAGE", "POOR"};
     String[][] ranges = {{"49-55","56-61","62-65","66-69","70-73","74-81", "81+"}
             ,{"49-54","55-61","62-65","66-70","71-74","74-81", "81+"}
             ,{"50-56","57-62","63-66","67-70","71-75","76-82", "82+"}
@@ -131,9 +129,9 @@ public class Reference extends Activity{
     //METHODS
     private void setStatusText(int pos){
         if(pos == 2 || pos == 6 || pos == 5)
-            status.setText("You have a " + status_strings[pos] + " heart");
+            status.setText("YOU HAVE A " + status_strings[pos] + " HEART");
         else
-            status.setText("You have an " + status_strings[pos] + " heart");
+            status.setText("YOU HAVE AN " + status_strings[pos] + " HEART");
     }
 
 }

@@ -7,6 +7,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.res.Configuration;
+import android.database.sqlite.SQLiteDatabase;
 import android.hardware.Camera;
 import android.os.Bundle;
 import android.os.PowerManager;
@@ -19,9 +20,7 @@ import java.util.concurrent.atomic.AtomicBoolean;
 
 public class MainActivity extends TabActivity {
 
-    /**
-     * Called when the activity is first created.
-     */
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -46,30 +45,11 @@ public class MainActivity extends TabActivity {
         host.addTab(tab2);
         host.addTab(tab3);
     }
-
-
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.options_menu, menu);
         return true;
     }
-
-    public void createInstructionsDialog(int messageId, int titleId){
-        AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
-        builder.setMessage(messageId);
-        builder.setIcon(R.drawable.ic_launcher);
-        builder.setTitle(titleId);
-        builder.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                dialog.cancel();
-            }
-        });
-        builder.setCancelable(true);
-        AlertDialog dialog =  builder.create();
-        dialog.show();
-    }
-
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch(item.getItemId()){
@@ -91,8 +71,32 @@ public class MainActivity extends TabActivity {
                 Intent intent = new Intent(MainActivity.this, HeartbeatReference.class);
                 startActivity(intent);
                 break;
+
+            case R.id.his:
+                SQLiteDatabase db = openOrCreateDatabase("heartrate_history", MODE_PRIVATE, null);
+                db.execSQL("DROP TABLE history;");
+                db.execSQL("CREATE TABLE IF NOT EXISTS history(heart_rate INT(3));");
+                db.close();
+                HeartBeatCalculator.createToast("History Cleared");
+                break;
         }
         return true;
     }
 
+
+    public void createInstructionsDialog(int messageId, int titleId){
+        AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
+        builder.setMessage(messageId);
+        builder.setIcon(R.drawable.ic_launcher);
+        builder.setTitle(titleId);
+        builder.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.cancel();
+            }
+        });
+        builder.setCancelable(true);
+        AlertDialog dialog =  builder.create();
+        dialog.show();
+    }
 }

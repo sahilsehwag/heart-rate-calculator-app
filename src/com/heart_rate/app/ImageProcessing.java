@@ -1,7 +1,7 @@
 package com.heart_rate.app;
 
 /**
- * Created by Sahil on 18-10-2015.
+ * Created by jaat on 18-10-2015.
  */
 public abstract class ImageProcessing {
 

@@ -7,5 +7,6 @@
     <item android:id="@+id/contact" android:title="@string/contact"/>
     <item android:id="@+id/instr" android:title="@string/Instructions"/>
     <item android:id="@+id/ref" android:title="Reference"/>
+    <item android:id="@+id/his" android:title="Clear History"/>
 
 </menu>

@@ -5,8 +5,10 @@
               android:layout_width="match_parent"
               android:layout_height="match_parent">
 
-    <ListView
+    <TextView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:id="@android:id/list"/>
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:text="Large Text"
+            android:id="@+id/textView" android:textAlignment="center" android:gravity="center" android:padding="10dp"/>
 </LinearLayout>

@@ -2,6 +2,7 @@ package com.heart_rate.app;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.content.res.Configuration;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
@@ -27,6 +28,7 @@ import java.util.concurrent.atomic.AtomicBoolean;
 
 public class HeartBeatCalculator extends Activity implements TextureView.SurfaceTextureListener,View.OnClickListener{
 
+    private static Context context = null;
     private static final String TAG = "HeartRateMonitor";
     private static final AtomicBoolean processing = new AtomicBoolean(false);
 
@@ -85,6 +87,7 @@ public class HeartBeatCalculator extends Activity implements TextureView.Surface
         text = (TextView) findViewById(R.id.beats_count);
         timer = (TextView) findViewById(R.id.timer);
         beatsCounter = (TextView) findViewById(R.id.beats_count);
+        context = this;
 
         PowerManager pm = (PowerManager) getSystemService(Context.POWER_SERVICE);
         wakeLock = pm.newWakeLock(PowerManager.FULL_WAKE_LOCK, "DoNotDimScreen");
@@ -163,6 +166,7 @@ public class HeartBeatCalculator extends Activity implements TextureView.Surface
                 //HANDLING TIMER
                 if(elapsedTime <= 0) {
                     stopHeartRateCalculator();
+                    insertIntoDatabase(text.getText().toString());
                     return;
                 }
                 timerEnd = System.currentTimeMillis() / 1000;
@@ -276,25 +280,6 @@ public class HeartBeatCalculator extends Activity implements TextureView.Surface
             }
         }
     };
-    private static Camera.Size getSmallestPreviewSize(int width, int height, Camera.Parameters parameters) {
-        Camera.Size result = null;
-
-        for (Camera.Size size : parameters.getSupportedPreviewSizes()) {
-            if (size.width <= width && size.height <= height) {
-                if (result == null) {
-                    result = size;
-                } else {
-                    int resultArea = result.width * result.height;
-                    int newArea = size.width * size.height;
-
-                    if (newArea < resultArea) result = size;
-                }
-            }
-        }
-
-        return result;
-    }
-
 
 
     //SURFACE TEXTURE VIEW LISTENER METHODS
@@ -325,9 +310,15 @@ public class HeartBeatCalculator extends Activity implements TextureView.Surface
     }
 
 
-    //PRIVATE METHODS
-    private void createToast(CharSequence message){
-        Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
+
+    //STATIC METHODS
+    public static void createToast(CharSequence message){
+        Toast.makeText(context, message, Toast.LENGTH_SHORT).show();
+    }
+    private static void insertIntoDatabase(String heartbeat){
+        Intent intent = new Intent(context, History.class);
+        intent.putExtra("heartbeat", heartbeat);
+        context.startActivity(intent);
     }
     private static void stopHeartRateCalculator(){
         try {
@@ -347,5 +338,23 @@ public class HeartBeatCalculator extends Activity implements TextureView.Surface
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+    private static Camera.Size getSmallestPreviewSize(int width, int height, Camera.Parameters parameters) {
+        Camera.Size result = null;
+
+        for (Camera.Size size : parameters.getSupportedPreviewSizes()) {
+            if (size.width <= width && size.height <= height) {
+                if (result == null) {
+                    result = size;
+                } else {
+                    int resultArea = result.width * result.height;
+                    int newArea = size.width * size.height;
+
+                    if (newArea < resultArea) result = size;
+                }
+            }
+        }
+
+        return result;
     }
 }
