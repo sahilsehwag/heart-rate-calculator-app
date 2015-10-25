@@ -9,13 +9,7 @@
             android:orientation="vertical"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
-        <!--FOR USING SURFACE VIEW-->
-        <!--<SurfaceView-->
-                <!--android:layout_width="match_parent"-->
-                <!--android:layout_height="match_parent"-->
-                <!--android:id="@+id/cameraSurface" android:visibility="visible"/>-->
 
-        <!--FOR USING TEXTURE VIEW-->
         <TextureView
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"

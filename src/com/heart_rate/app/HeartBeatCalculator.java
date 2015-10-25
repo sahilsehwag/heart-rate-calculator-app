@@ -32,10 +32,6 @@ public class HeartBeatCalculator extends Activity implements TextureView.Surface
     private static final String TAG = "HeartRateMonitor";
     private static final AtomicBoolean processing = new AtomicBoolean(false);
 
-    //SURFACE VIEW
-    private static SurfaceView preview = null;
-    private static SurfaceHolder previewHolder = null;
-
     //TEXTURE VIEW
     private static TextureView previewSurface = null;
 
@@ -73,12 +69,6 @@ public class HeartBeatCalculator extends Activity implements TextureView.Surface
         super.onCreate(savedInstanceState);
         setContentView(R.layout.heart_beat_calculator);
 
-        //FOR USING SURFACE VIEW
-//        preview = (SurfaceView) findViewById(R.id.cameraSurface);
-//        previewHolder = preview.getHolder();
-//        previewHolder.addCallback(surfaceCallback);
-//        previewHolder.setType(SurfaceHolder.SURFACE_TYPE_PUSH_BUFFERS);
-
         //FOR USING TEXTURE VIEW
         previewSurface = (TextureView) findViewById(R.id.previewSurface);
         previewSurface.setSurfaceTextureListener(this);
@@ -99,6 +89,11 @@ public class HeartBeatCalculator extends Activity implements TextureView.Surface
         super.onConfigurationChanged(newConfig);
     }
 
+    @Override
+    protected void onRestart() {
+        super.onRestart();
+        previewSurface.setVisibility(View.VISIBLE);
+    }
     @Override
     public void onResume() {
         super.onResume();
@@ -132,7 +127,6 @@ public class HeartBeatCalculator extends Activity implements TextureView.Surface
 
                 //SETTING PREVIEW DISPLAY(WILL SHOW PREVIEW ON SURFACE VIEW)
                 try {
-                    //camera.setPreviewDisplay(previewHolder);
                     camera.setPreviewTexture(previewSurface.getSurfaceTexture());
                 } catch (IOException e) {
                     e.printStackTrace();
@@ -249,37 +243,6 @@ public class HeartBeatCalculator extends Activity implements TextureView.Surface
         };
     }
 
-
-
-    private static SurfaceHolder.Callback surfaceCallback = new SurfaceHolder.Callback() {
-        @Override
-        public void surfaceDestroyed(SurfaceHolder holder) {
-            //IGNORE
-        }
-        @Override
-        public void surfaceCreated(SurfaceHolder holder) {
-            try {
-                camera.setPreviewDisplay(previewHolder);
-                camera.setPreviewCallback(previewCallback);
-            } catch (Throwable t) {
-                Log.e("PreviewDemo-surfaceCallback", "Exception in setPreviewDisplay()", t);
-            }
-        }
-        @Override
-        public void surfaceChanged(SurfaceHolder holder, int format, int width, int height) {
-            if(camera != null){
-                Camera.Parameters parameters = camera.getParameters();
-                parameters.setFlashMode(Camera.Parameters.FLASH_MODE_TORCH);
-                Camera.Size size = getSmallestPreviewSize(width, height, parameters);
-                if (size != null) {
-                    parameters.setPreviewSize(size.width, size.height);
-                    Log.d(TAG, "Using width=" + size.width + " height=" + size.height);
-                }
-                camera.setParameters(parameters);
-                camera.startPreview();
-            }
-        }
-    };
 
 
     //SURFACE TEXTURE VIEW LISTENER METHODS
