@@ -1,7 +1,9 @@
 package com.heart_rate.app;
 
 import android.app.ListActivity;
+import android.content.Context;
 import android.database.Cursor;
+import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.widget.ArrayAdapter;
@@ -14,7 +16,8 @@ import java.util.ArrayList;
 public class History extends ListActivity {
 
     String heartbeat = null;
-    ArrayList<String> heartbeat_data = new ArrayList<String>();
+    static ArrayList<String> heartbeat_data = new ArrayList<String>();
+    static ArrayAdapter<String> adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,21 +35,30 @@ public class History extends ListActivity {
             e.printStackTrace();
         }
 
-        //LOADING PREVIOUS DATA
-        loadHeartbeatData();
-        setupListview();
+        if (heartbeat_data.isEmpty()){
+            adapter = new ArrayAdapter<String>(this, R.layout.list_item, R.id.textView, heartbeat_data);
+
+            //LOADING PREVIOUS DATA
+            loadHeartbeatData();
+            setupListview();
+        }
+        else setupListview();
+
     }
 
 
 
     private void setupListview(){
-        setListAdapter(new ArrayAdapter<String>(History.this, R.layout.list_item, R.id.textView, heartbeat_data));
+        setListAdapter(adapter);
     }
     private void insertIntoDatabase(String heartbeat){
-        if(heartbeat == null || heartbeat == "") return;
+        if(heartbeat == null || heartbeat.equals("")) return;
         SQLiteDatabase db = openOrCreateDatabase("heartrate_history", MODE_PRIVATE, null);
         db.execSQL("INSERT INTO history VALUES(" + heartbeat + ");");
         db.close();
+
+        //UPDATING LISTVIEW
+        heartbeat_data.add(heartbeat);
     }
     private void loadHeartbeatData(){
         SQLiteDatabase db = openOrCreateDatabase("heartrate_history", MODE_PRIVATE, null);
@@ -60,7 +72,21 @@ public class History extends ListActivity {
 
         db.close();
     }
-    private void clearHistory(){
+    public static void clearHistory(Context context){
+        //CLEARING HISTORY
+        SQLiteDatabase db = context.openOrCreateDatabase("heartrate_history", MODE_PRIVATE, null);
+        db.execSQL("DROP TABLE history;");
+        db.execSQL("CREATE TABLE IF NOT EXISTS history(heart_rate INT(3));");
+        db.close();
+        HeartBeatCalculator.createToast("History Cleared");
 
+        //UPDATING LISTVIEW
+        heartbeat_data.clear();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        adapter.notifyDataSetChanged();
     }
 }

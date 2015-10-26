@@ -165,7 +165,7 @@ public class HeartBeatCalculator extends Activity implements TextureView.Surface
                 }
                 timerEnd = System.currentTimeMillis() / 1000;
                 elapsedTime = 30 - (timerEnd - timerStart);
-                timer.setText("Measuring in" + "\n         " + String.valueOf(elapsedTime) + "s");
+                timer.setText("MEASURING IN" + "\n         " + String.valueOf(elapsedTime) + "s");
 
 
                 if (!processing.compareAndSet(false, true)) return;

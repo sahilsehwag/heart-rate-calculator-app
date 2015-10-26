@@ -73,11 +73,7 @@ public class MainActivity extends TabActivity {
                 break;
 
             case R.id.his:
-                SQLiteDatabase db = openOrCreateDatabase("heartrate_history", MODE_PRIVATE, null);
-                db.execSQL("DROP TABLE history;");
-                db.execSQL("CREATE TABLE IF NOT EXISTS history(heart_rate INT(3));");
-                db.close();
-                HeartBeatCalculator.createToast("History Cleared");
+                History.clearHistory(this);
                 break;
         }
         return true;
