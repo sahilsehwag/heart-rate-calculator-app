@@ -160,7 +160,8 @@ public class HeartBeatCalculator extends Activity implements TextureView.Surface
                 //HANDLING TIMER
                 if(elapsedTime <= 0) {
                     stopHeartRateCalculator();
-                    insertIntoDatabase(text.getText().toString());
+//                    insertIntoDatabase(text.getText().toString());
+                    createToast(text.getText().toString());
                     return;
                 }
                 timerEnd = System.currentTimeMillis() / 1000;

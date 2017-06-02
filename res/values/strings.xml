@@ -3,11 +3,11 @@
     <string name="app_name">Heart Rate Calculator</string>
     <string name="rate">Rate Us</string>
     <string name="contact">Contact Us</string>
+    <string name="contno">Email: sehwagsahil002@gmail.com</string>
     <string name="Instructions">Instructions</string>
     <string name="instruct">1. Put Your Index Finger on camera.\n2. Don\'t press tightly on camera. \n3. Keep your finger for 30 seconds.</string>
-    <string name="dev">Developed By :\n\tSahil Sehwag\n\tFaraz Peerbaksh</string>
+    <string name="dev">Developed By :\n\tSahil Sehwag (Github: sahilsehwag) \n\tFaraz Peerbaksh (Github: )</string>
     <string name="dev_title">Developers</string>
-    <string name="contno_">Contact:</string>
     <string name="ref">Age 20-29:\n\t</string>
-    <string name="timer">Measuring in</string>
+    <string name="timer">Calculating in</string>
 </resources>

@@ -32,9 +32,9 @@ public class MainActivity extends TabActivity {
         tab1.setContent(new Intent(this, HeartBeatCalculator.class));
         tab1.setIndicator("Calculator");
 
-        TabHost.TabSpec tab2 = host.newTabSpec("tag2");
-        tab2.setContent(new Intent(this, History.class));
-        tab2.setIndicator("History");
+//        TabHost.TabSpec tab2 = host.newTabSpec("tag2");
+//        tab2.setContent(new Intent(this, History.class));
+//        tab2.setIndicator("History");
 
         TabHost.TabSpec tab3 = host.newTabSpec("tag3");
         tab3.setContent(new Intent(this, Reference.class));
@@ -42,7 +42,7 @@ public class MainActivity extends TabActivity {
 
 
         host.addTab(tab1);
-        host.addTab(tab2);
+//        host.addTab(tab2);
         host.addTab(tab3);
     }
     @Override
@@ -57,24 +57,24 @@ public class MainActivity extends TabActivity {
                 createInstructionsDialog(R.string.dev, R.string.dev_title);
                 break;
             case R.id.contact:
-                createInstructionsDialog(R.string.contno_, R.string.contact);
+                createInstructionsDialog(R.string.contno, R.string.contact);
                 break;
 
-            case R.id.rate:
-                break;
+//            case R.id.rate:
+//                break;
 
             case R.id.instr:
                 createInstructionsDialog(R.string.instruct, R.string.Instructions);
                 break;
 
-            case R.id.ref:
-                Intent intent = new Intent(MainActivity.this, HeartbeatReference.class);
-                startActivity(intent);
-                break;
-
-            case R.id.his:
-                History.clearHistory(this);
-                break;
+//            case R.id.ref:
+//                Intent intent = new Intent(MainActivity.this, HeartbeatReference.class);
+//                startActivity(intent);
+//                break;
+//
+//            case R.id.his:
+//                History.clearHistory(this);
+//                break;
         }
         return true;
     }

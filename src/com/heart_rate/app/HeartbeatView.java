@@ -10,7 +10,7 @@ import android.view.View;
  */
 public class HeartbeatView extends View{
 
-    PreviewCallback previewCallback = new PreviewCallback();
+//    PreviewCallback previewCallback = new PreviewCallback();
 
     private static final Matrix matrix = new Matrix();
     private static final Paint paint = new Paint(Paint.ANTI_ALIAS_FLAG);
